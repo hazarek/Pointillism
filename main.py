@@ -71,7 +71,15 @@ for h in bar(range(0, len(grid), batch_size)):
         length = int(round(stroke_scale + stroke_scale * math.sqrt(gradient.magnitude(y, x))))
 
         # draw the brush stroke
-        cv2.ellipse(res, (x, y), (length, stroke_scale), angle, 0, 360, color, -1, cv2.LINE_AA)
+        cv2.ellipse(res,
+            center=(x, y),
+              axes=(length, stroke_scale),
+             angle=angle,
+        startAngle=0,
+          endAngle=360,
+             color=color,
+         thickness=-1, # border thickness. -1 px will fill the shape by the specified color.
+          lineType=cv2.LINE_AA)
 
 
 cv2.imshow("res", limit_size(res, 1080))
