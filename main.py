@@ -33,7 +33,8 @@ res = np.zeros(img.shape, dtype=np.uint8)
 # res2 = cv2.cvtColor(gradient.get_magnitude_image(), cv2.COLOR_GRAY2BGR)
 
 # define a randomized grid of locations for the brush strokes
-grid = normal_grid(img.shape[0], img.shape[1], scale=16)
+grid = randomized_grid(img.shape[0], img.shape[1], scale=20)
+# grid = normal_grid(img.shape[0], img.shape[1], scale=20)
 # print(img.shape[0] * img.shape[1], len(grid))
 batch_size = 10000
 bar = progressbar.ProgressBar()
@@ -58,7 +59,7 @@ for h in bar(range(0, len(grid), batch_size)):
             pt1=(x, y),
             pt2=(int(x + math.cos(angle) * length), int(y - math.sin(angle) * length)),
           color=color,
-          thickness=int(math.sqrt(length)),
+          thickness=int(math.sqrt(length) / 2),
           lineType=cv2.LINE_AA)
         
         # cv2.ellipse(res2,
@@ -76,7 +77,8 @@ for h in bar(range(0, len(grid), batch_size)):
     
 
 # cv2.imshow("res", limit_size(res, 1080))
-# cv2.imwrite("test/output.png", res)
+res = limit_size(res, 900)
+cv2.imwrite("images/randomized_grid.png", res)
 cv2.imshow("res", res)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
