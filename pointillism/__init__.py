@@ -44,3 +44,16 @@ def randomized_grid(h, w, scale):
     random.shuffle(grid)
     return grid
 
+def normal_grid(h, w, scale):
+    r = scale//2
+    grid = []
+    for i in range(0, h, scale):
+        for j in range(0, w, scale):
+            y = r + i
+            x = r + j
+
+            grid.append((y % h, x % w))
+    # random.shuffle(grid)
+    return grid
+
+
